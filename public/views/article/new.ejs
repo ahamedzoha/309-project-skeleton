@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>New Article Form</title>
+    </head>
+    <body>
+        <h1>Create new article</h1>
+        <p>Title:</p>
+        <input type="text" id="title"></input>
+        <textarea id="content">Add content</textarea><br/>
+        <button id="submit">Submit</button>
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+        </script>
+        
+        <script>
+            var newArticle = {title:"", content:""};
+            $('#submit').click(function(){
+                console.log('submit clicked');
+                console.log('#title').val();
+                console.log('#content').val();
+                newArticle.title = $('#title').val;
+                newArticle.content = $('#content').val;
+                $.ajax({
+                    method: "POST",
+                    url: "/api/articles",
+                    data: newArticle
+                }).done(function(response){
+                    console.log(response);
+                }).fail(function(response){
+                    console.log(response.responseText.message);
+                });
+            })
+        </script>
+    </body>
+</html>
