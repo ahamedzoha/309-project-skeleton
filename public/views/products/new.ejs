@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>New Article Form</title>
+    </head>
+    <body>
+        <h1>Create new product</h1>
+        <p>Name:</p>
+        <input type="text" id="name"></input>
+        <p>Description:</p>
+        <textarea id="description">Add description</textarea><br/>
+        <p>Price:</p>
+        <input type="text" id="price"></input>
+        <p>Quantity:</p>
+        <input type="text" id="name"></input>
+        <p id="#error"></p>
+        
+        <button id="submit">Submit</button>
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+        </script>
+        
+        <script>
+            var newProduct = {name:"", description:"", price:0, quantity:1};
+            $('#submit').click(function(){
+                console.log('submit clicked');
+                console.log($('#name').val());
+                console.log($('#description').val());
+                newProduct.name = $('#name').val();
+                newProduct.description = $('#description').val();
+                newProduct.price = $('#price').val();
+                newProduct.quantity = $('#quantity').val();
+                
+                $.ajax({
+                    method: "POST",
+                    url: "/api/products",
+                    data: newProduct
+                }).done(function(response){
+                    console.log(response);
+                }).fail(function(response){
+                    console.log(response.responseText.message);
+                    $('#error').text(JSON.parse(response.responseText).message);
+                    console.log(response.responseText);
+                });
+            })
+        </script>
+    </body>
+</html>

@@ -1,7 +1,7 @@
 {
   "name": "309-project-skeleton",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "index.ejs",
   "scripts": {
     "start": "node server.js"
   },
